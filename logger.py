@@ -1,8 +1,8 @@
 class Logger(object):
+    # the file_name passed in as a param will be the same data_file used in the 
+    # logger methods below.  That file will persist for the lifespan of the logger objec
     def __init__(self, file_name):
         self.file_name = file_name
-        # TODO:  Finish this initialization method. The file_name passed should be the
-        # full file name of the file that the logs will be written to.
         
 
     # The methods below are just suggestions. You can rearrange these or 
@@ -23,7 +23,8 @@ class Logger(object):
 
     def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate,
                        basic_repro_num):
-        # open in write mode
+        # open in write mode which overwrites any previous data so this method can only be called
+        # once and must be called before the other 2 logger methods
         with open(self.file_name, 'w') as data_file:
             data_file.write(f"Population Size: {pop_size}\tVaccination Percentage: {vacc_percentage}\tVirus Name: {virus_name}\tMortality Rate: {mortality_rate}\tReproduction Rate: {basic_repro_num}\n")
         
