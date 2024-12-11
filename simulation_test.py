@@ -14,18 +14,17 @@ def test_create_population(setup_simulation):
     assert population_length == 1000
     
     vaccinated_count = sum(person.is_vaccinated for person in simulation.population)
-    assert vaccinated_count == 100  # 10% of 1000 is 100
+    assert vaccinated_count == 100  
 
 def test_survival_after_infection(setup_simulation):
     simulation = setup_simulation
     infected_person = simulation.population[0]
     infected_person.infection = simulation.virus
-    survived = infected_person.did_survive_infection()  # Simulate survival check
-    
+    survived = infected_person.did_survive_infection()  
     if not survived:
-        infected_person.is_alive = False  # This would align with your implementation context
+        infected_person.is_alive = False 
 
-    assert infected_person.is_alive or infected_person.is_vaccinated  # Should still be alive or vaccinated
+    assert infected_person.is_alive or infected_person.is_vaccinated  
 
-# Add more tests as needed
+
 

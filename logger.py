@@ -28,23 +28,19 @@ class Logger(object):
             data_file.write(f"Virus Name: {virus_name}\n")
             data_file.write(f"Mortality Rate: {mortality_rate}\n")
             data_file.write(f"Reproduction Rate: {basic_repro_num}\n")
-
-        
-        # TODO: Finish this method. This line of metadata should be tab-delimited
-        # it should create the text file that we will store all logs in.
-        # TIP: Use 'w' mode when you open the file. For all other methods, use
-        # the 'a' mode to append a new log to the end, since 'w' overwrites the file.
-        # NOTE: Make sure to end every line with a '/n' character to ensure that each
-        # event logged ends up on a separate line!
         
 
-    def log_interactions(self, step_number, number_of_interactions, number_of_new_infections):
+    def log_interactions(self, step_number, number_of_interactions, number_of_new_infections, infection_survival_rate=None):
         with open(self.file_name, 'a') as data_file:
             data_file.write(f"======================================\n")
             data_file.write(f"Step: {step_number}\n")
             data_file.write(f"Total interactions: {number_of_interactions}\n")
             data_file.write(f"Total new infections: {number_of_new_infections}\n")
+            if infection_survival_rate is not None:  # Optional logging
+                data_file.write(f"Infection Survival Rate: {infection_survival_rate:.2f}\n")
             data_file.write(f"======================================\n")
+
+
 
 
 
@@ -54,12 +50,6 @@ class Logger(object):
         # exactly what happened in the interaction and create a String, and write to your logfile.
         
 
-    def log_interactions(self, step_number, number_of_interactions, number_of_new_infections):
-        with open(self.file_name, 'a') as data_file:
-            data_file.write(f"======================================\n")
-            data_file.write(f"Step: {step_number}\n")
-            data_file.write(f"Total interactions: {number_of_interactions}\n")
-            data_file.write(f"Total new infections: {number_of_new_infections}\n")
-            data_file.write(f"======================================\n")
+   
 
 

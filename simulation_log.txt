@@ -3,3 +3,21 @@ Vaccination Percentage: 0.1
 Virus Name: Sniffles
 Mortality Rate: 0.12
 Reproduction Rate: 0.5
+======================================
+Step: 0
+Total interactions: 1000
+Total new infections: 418
+Infection Survival Rate: 0.02
+======================================
+======================================
+Step: 1
+Total interactions: 33300
+Total new infections: 9526
+Infection Survival Rate: 0.03
+======================================
+======================================
+Step: 2
+Total interactions: 85800
+Total new infections: 0
+Infection Survival Rate: 0.00
+======================================

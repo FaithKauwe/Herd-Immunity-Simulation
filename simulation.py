@@ -23,9 +23,9 @@ class Simulation(object):
 
         # Store newly infected individuals for the time step
         self.newly_infected = []
+        self.time_step_counter = 0
     
-        # Remember to call the appropriate logger method in the corresponding parts of the simulation.        
-        
+       
     
     # leading underscore in method name lets devs know this is a private method, intended for use
     # only in this class
@@ -72,20 +72,19 @@ class Simulation(object):
     # by anyone using a Simulation instance
     def run(self):
         # time_step represents one iteration of the simulation
-        time_step_counter = 0
+        
         
         while self._simulation_should_continue():
             # Advance the simulation by one time step
             self.time_step()  
-            time_step_counter += 1
+            self.time_step_counter += 1
         
         # Final log of the simulation results, initial logging takes place when the Simulation object is first
         # instantiated, with self.logger.write_metadata
         living_count = sum(person.is_alive for person in self.population)
         dead_count = sum(not person.is_alive for person in self.population)
         vaccinated_count = sum(person.is_vaccinated for person in self.population)
-        self.logger.log_infection_survival(time_step_counter, len(self.population), dead_count)
-
+       
 
  # This method will simulate interactions between people, calulate 
  # new infections, and determine vaccinations and fatalities from infections
@@ -95,6 +94,7 @@ class Simulation(object):
         self.newly_infected = []
         total_interactions = 0
         new_infections_count = 0
+        surviving_count = 0
         # loop through population array
         for person in self.population:
             if person.is_alive and person.infection:  # Only interact if the person is alive and infected
@@ -114,14 +114,16 @@ class Simulation(object):
                 if not survived:
                    # change the is_alive flag to False 
                     person.is_alive = False
+                else: 
+                    surviving_count += 1
 
         # Infect newly infected individuals after all interactions
         self._infect_newly_infected()
 
+        infection_survival_rate = surviving_count/ len(self.newly_infected) if self.newly_infected else 0
+
         # Log this step's interactions and survival data
-        current_step = self.time_step_counter + 1  # Increment and log as current step
-        self.logger.log_interactions(current_step, total_interactions, new_infections_count)
-        self.logger.log_infection_survival(current_step, len(self.population), sum(not person.is_alive for person in self.population))
+        self.logger.log_interactions(self.time_step_counter, total_interactions, new_infections_count, infection_survival_rate)
 
 
     def interaction(self, infected_person, random_person):
@@ -133,8 +135,7 @@ class Simulation(object):
             return  
         # already infected person does not get affected
         if random_person.infection:
-            return  
-            
+            return      
         # Not vaccinated and not infected
         infection_chance = random.random()
         # Infection occurs
@@ -162,7 +163,6 @@ if __name__ == "__main__":
     initial_infected = 10
 
     # Make a new instance of the simulation
-   # virus = Virus(virus, pop_size, vacc_percentage, initial_infected)
     sim = Simulation(virus, pop_size, vacc_percentage, initial_infected)
 
     sim.run()
