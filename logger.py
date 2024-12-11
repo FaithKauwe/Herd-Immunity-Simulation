@@ -40,16 +40,30 @@ class Logger(object):
                 data_file.write(f"Infection Survival Rate: {infection_survival_rate:.2f}\n")
             data_file.write(f"======================================\n")
 
+    def answers_log(self, pop_size, time_step_counter, total_interactions, dead_count, vaccinated_count, total_infections, virus_name, mortality_rate, repro_rate, initial_infected, vaccine_saves):
+        with open("answers.txt", "w") as log: 
+            log.write(f"""
+    What were the inputs you gave the simulation? (Population size, percent vaccinated, virus name, mortality rate, reproductive rate)
+    Initial population size: {pop_size}
+    Vaccination percentage: {round(vaccinated_count/ pop_size * 100)}%
+    Name of the virus: {virus_name}
+    Mortality rate: {mortality_rate}
+    Reproductive rate of {virus_name} was: {repro_rate}
+    Total initial infected: {initial_infected}
 
+    What percentage of the population died from the virus?
+    About {round((dead_count / pop_size) * 100)}% of the population died from the virus.
 
+    What percentage of the population became infected at some point before the virus burned out?
+    About {round((total_infections / pop_size) * 100)}% of the population became infected at some point before the virus burnt out.
 
+    Out of all interactions sick individuals had during the entire simulation, how many times, in total, did a vaccination save someone from potentially becoming infected?
+    The total times a vaccine saved a sick individual was: {vaccine_saves}
 
-        # TODO: Finish this method. Think about how the booleans passed (or not passed)
-        # represent all the possible edge cases. Use the values passed along with each person,
-        # along with whether they are sick or vaccinated when they interact to determine
-        # exactly what happened in the interaction and create a String, and write to your logfile.
-        
-
-   
-
+    Total steps: {time_step_counter}
+    Total interactions: {total_interactions}
+    Total people dead: {dead_count}
+    Total vaccinated: {vaccinated_count}
+    Total infections: {total_infections}
+    """)
 
