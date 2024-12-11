@@ -5,9 +5,6 @@ class Logger(object):
         self.file_name = file_name
         
 
-    # The methods below are just suggestions. You can rearrange these or 
-    # rewrite them to better suit your code style. 
-    # What is important is that you log the following information from the simulation:
     # Meta data: This shows the starting situtation including:
     #   population, initial infected, the virus, and the initial vaccinated.
     # Log interactions. At each step there will be a number of interaction
@@ -26,7 +23,12 @@ class Logger(object):
         # open in write mode which overwrites any previous data so this method can only be called
         # once and must be called before the other 2 logger methods
         with open(self.file_name, 'w') as data_file:
-            data_file.write(f"Population Size: {pop_size}\tVaccination Percentage: {vacc_percentage}\tVirus Name: {virus_name}\tMortality Rate: {mortality_rate}\tReproduction Rate: {basic_repro_num}\n")
+            data_file.write(f"Population Size: {pop_size}\n")
+            data_file.write(f"Vaccination Percentage: {vacc_percentage}\n")
+            data_file.write(f"Virus Name: {virus_name}\n")
+            data_file.write(f"Mortality Rate: {mortality_rate}\n")
+            data_file.write(f"Reproduction Rate: {basic_repro_num}\n")
+
         
         # TODO: Finish this method. This line of metadata should be tab-delimited
         # it should create the text file that we will store all logs in.
@@ -38,7 +40,12 @@ class Logger(object):
 
     def log_interactions(self, step_number, number_of_interactions, number_of_new_infections):
         with open(self.file_name, 'a') as data_file:
-            data_file.write(f"Step {step_number}: Interactions: {number_of_interactions}, New Infections: {number_of_new_infections}\n")
+            data_file.write(f"======================================\n")
+            data_file.write(f"Step: {step_number}\n")
+            data_file.write(f"Total interactions: {number_of_interactions}\n")
+            data_file.write(f"Total new infections: {number_of_new_infections}\n")
+            data_file.write(f"======================================\n")
+
 
 
         # TODO: Finish this method. Think about how the booleans passed (or not passed)
@@ -47,11 +54,12 @@ class Logger(object):
         # exactly what happened in the interaction and create a String, and write to your logfile.
         
 
-    def log_infection_survival(self, step_number, population_count, number_of_new_fatalities):
-        # TODO: Finish this method. If the person survives, did_die_from_infection
-        # should be False.  Otherwise, did_die_from_infection should be True.
-        # Append the results of the infection to the logfile
-        # open in append mode
+    def log_interactions(self, step_number, number_of_interactions, number_of_new_infections):
         with open(self.file_name, 'a') as data_file:
-            data_file.write(f"Step {step_number}: Population Count: {population_count}, New Fatalities: {number_of_new_fatalities}\n")
+            data_file.write(f"======================================\n")
+            data_file.write(f"Step: {step_number}\n")
+            data_file.write(f"Total interactions: {number_of_interactions}\n")
+            data_file.write(f"Total new infections: {number_of_new_infections}\n")
+            data_file.write(f"======================================\n")
+
 
